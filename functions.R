@@ -39,8 +39,10 @@ gmap.getTravelTime <- function(urlFileName) {
   
   ## Extract travel duration from string
   durationString <- str_match(durationHtml, ">(.*?)<")[2]
-  durationHour <- as.numeric(sub(' h.*', '', durationString))
-  durationMinute <- as.numeric(str_match(durationString, " h (.*?)&nbsp;")[2])
+  durationSplitStrings <- unlist(strsplit(durationString, "h"))
+  durationSplitNumeric <- as.numeric(regmatches(durationSplitStrings, gregexpr("[[:digit:]]+", durationSplitStrings)))
+  durationHour <- durationSplitNumeric[1]
+  durationMinute <- durationSplitNumeric[2]
   
   durationTime <- durationHour * 60 + durationMinute
   
