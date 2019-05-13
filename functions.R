@@ -16,7 +16,7 @@ gmap.getTravelTime <- function(urlFileName) {
   eCaps <- list(chromeOptions = list(
     args = c('--headless', '--disable-gpu', '--window-size=1280,800')
   ))
-  rD <- RSelenium::rsDriver(port = 5555L, 'chrome', extraCapabilities = eCaps)
+  rD <- RSelenium::rsDriver(port = 5555L, browser = 'chrome', chromever="73.0.3683.68", extraCapabilities = eCaps)
   
   ## Create client
   remDr <- rD[["client"]]

@@ -9,6 +9,6 @@ if (!file.exists(urlFileName)) {
 }
 
 travelTime      <- gmap.getTravelTime(urlFileName)
-historyFileName <- "history.csv"
+historyFileName <- paste0("data/", Sys.Date() , "_history.csv")
 historyDt       <- addToHistory(historyFileName, travelTime)
 
