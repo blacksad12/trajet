@@ -14,8 +14,26 @@ analysis.getData <- function() {
   return(trajetDt)
 }
 
-analysis.getTimePlot <- function() {
+#' Title
+#'
+#' @param firstDate 
+#' @param lastDate 
+#'
+#' @return
+#' @export
+#'
+#' @examples analysis.getTimePlot(as.POSIXct("2019-05-01"))
+analysis.getTimePlot <- function(firstDate, lastDate) {
   trajetDt <- analysis.getData()
+  
+  ## Filter by datetime
+  if (!missing(firstDate)) {
+    trajetDt <- trajetDt[datetime >= firstDate]
+  }
+  if (!missing(lastDate)) {
+    trajetDt <- trajetDt[datetime <= lastDate]
+  }
+  
   trajetDt <- trajetDt[, wday := ifelse(wday(datetime)==1,7,wday(datetime)-1)]
   trajetDt <- trajetDt[, datetime := floor_date(datetime, "min")]
   trajetDt <- trajetDt[, hour := hour(datetime) + minute(datetime) / 60]
